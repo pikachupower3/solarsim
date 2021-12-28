@@ -7,18 +7,22 @@ public class CelestialBody : GravityObject {
 
     public float radius;
     public float surfaceGravity;
+   /* public float orbitRadius;
+    public Transform targetObject;*/
     public Vector3 initialVelocity;
     public string bodyName = "Unnamed";
     Transform meshHolder;
 
     public Vector3 velocity { get; private set; }
     public float mass { get; private set; }
+    public double mass2 { get; private set; }
     Rigidbody rb;
 
     void Awake () {
         rb = GetComponent<Rigidbody> ();
         rb.mass = mass;
         velocity = initialVelocity;
+        /*transform.Translate(orbitRadius, 0, 0); */
     }
 
     public void UpdateVelocity (CelestialBody[] allBodies, float timeStep) {
@@ -43,7 +47,8 @@ public class CelestialBody : GravityObject {
     }
 
     void OnValidate () {
-        mass = surfaceGravity * radius * radius / Universe.gravitationalConstant;
+        mass2 = surfaceGravity * radius * radius / Universe.gravitationalConstant / 1e+16;
+        mass = (float)mass2;
         meshHolder = transform.GetChild (0);
         meshHolder.localScale = Vector3.one * radius;
         gameObject.name = bodyName;
@@ -58,6 +63,14 @@ public class CelestialBody : GravityObject {
     public Vector3 Position {
         get {
             return rb.position;
+        }
+    }
+    void Update()
+    {
+        if (Input.GetKeyDown("h"))
+        {
+            Debug.Log("Mass = " + GetComponent<Rigidbody>().mass + gameObject.name);
+
         }
     }
 
