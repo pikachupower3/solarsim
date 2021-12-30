@@ -22,7 +22,13 @@ public class NBodySimulation : MonoBehaviour {
 
         for (int i = 0; i < bodies.Length; i++) {
             bodies[i].UpdatePosition (Universe.physicsTimeStep);
+            
+            if (Input.GetKeyDown("j"))
+            {
+                Debug.Log("Bodies = " + bodies[i] + " " + i);
+            }
         }
+
 
     }
 

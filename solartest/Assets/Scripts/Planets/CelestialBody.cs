@@ -3,11 +3,14 @@ using UnityEngine;
 
 [ExecuteInEditMode]
 [RequireComponent(typeof(Rigidbody))]
-public class CelestialBody : GravityObject {
+public class CelestialBody : CreationManager
+{
 
-    public float radius;
-    public float surfaceGravity;
+   /* public float radius;
+    public float orbitRadius;
+    public float surfaceGravity;*/
     public float mass;
+    public CelestialBody targetObject;
     public Vector3 initialVelocity;
     public string bodyName = "Unnamed";
     Transform meshHolder;
@@ -21,6 +24,9 @@ public class CelestialBody : GravityObject {
         rb = GetComponent<Rigidbody>();
         rb.mass = mass;
         velocity = initialVelocity;
+        transform.position = new Vector3 (-orbitRadius - targetObject.orbitRadius, 0, 0);
+        /*massPlanet = 0;
+        massStar = 0;*/
     }
 
     public void UpdateVelocity(CelestialBody[] allBodies, float timeStep) {
@@ -43,8 +49,14 @@ public class CelestialBody : GravityObject {
         rb.MovePosition(rb.position + velocity * timeStep);
 
     }
+    
+    public void CreateBody(string name)
+    {
+        bodyName = name;
+    }
 
-    void OnValidate() {
+    void OnValidate()
+    {
         if (gameObject.name != "Sun")
         {
             massPlanet = (float)(surfaceGravity * radius * radius / Universe.gravitationalConstant);

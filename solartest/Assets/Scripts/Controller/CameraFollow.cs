@@ -15,8 +15,8 @@ public class CameraFollow : MonoBehaviour
     public Vector3 position2;
     public Vector3 initialPosition;
 
-    private float moveSpeed = 50f;
-    private float scrollSpeed = 50f;
+    private float moveSpeed = 500f;
+    private float scrollSpeed = 500f;
 
     void Start()
     {
