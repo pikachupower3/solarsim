@@ -67,4 +67,9 @@ public class TerrainGenerator : MonoBehaviour {
     void OnValidate () {
         settingsChanged = true;
     }
+
+    public void CreateMesh(bool settings)
+    {
+        settingsChanged = settings;
+    }
 }

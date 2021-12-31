@@ -48,6 +48,7 @@ public class CameraFollow : MonoBehaviour
         if (Input.GetKeyDown("f"))
         {
             transform.position = initialPosition;
+            transform.rotation = Quaternion.identity;
         }
     }
 
