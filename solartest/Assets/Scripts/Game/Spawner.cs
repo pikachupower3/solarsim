@@ -6,7 +6,8 @@ public class Spawner : MonoBehaviour
     public float radius;
     public float orbitRadius;
     public float surfaceGravity;
-    public Material Texture;
+    public Color color;
+    public Shader shader;
     public CelestialBody body;
     public string bodyName;
     GameObject currentEntity;
@@ -34,20 +35,28 @@ public class Spawner : MonoBehaviour
 
         GameObject mesh = currentEntity.transform.Find("Mesh Holder").gameObject;
         mesh.transform.localScale = Vector3.one * radius;
-        mesh.GetComponent<TerrainGenerator>().material = Texture;
+        mesh.GetComponent<TerrainGenerator>().material = new Material(shader);
+        mesh.GetComponent<TerrainGenerator>().material.color = color;
 
-        if (radius > 5000)
+        /*if (radius > 5000)
         {
             radius /= 2;
         }
         if (orbitRadius > 100000)
         {
-            orbitRadius /= 2;
-        }
+            orbitRadius /= 1.5f;
+        }*/
+
+
+        GameObject go = GameObject.Find("Sun");
+        CelestialBody massBody = go.GetComponent<CelestialBody>();
+        Vector3 initialVelocity = new Vector3(0, 1, 0) * (float)(Mathf.Sqrt((Universe.gravitationalConstant * massBody.mass / (orbitRadius + body.orbitRadius)) * 1.5f));
 
         CelestialBody createdBody = currentEntity.GetComponent<CelestialBody>();
-        createdBody.CreateBody(radius, orbitRadius, surfaceGravity, bodyName);
+        createdBody.CreateBody(radius, orbitRadius, surfaceGravity, initialVelocity, body, bodyName);
         TerrainGenerator createMesh = mesh.GetComponent<TerrainGenerator>();
         createMesh.CreateMesh(true);
+        NBodySimulation newBody = FindObjectOfType<NBodySimulation>();
+        newBody.NewBody();
     }
 }

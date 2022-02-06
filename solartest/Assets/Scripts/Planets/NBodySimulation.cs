@@ -6,6 +6,11 @@ public class NBodySimulation : MonoBehaviour {
     CelestialBody[] bodies;
     static NBodySimulation instance;
 
+    public void NewBody()
+    {
+        bodies = FindObjectsOfType<CelestialBody>();
+    }
+
     void Awake () {
 
         bodies = FindObjectsOfType<CelestialBody> ();
