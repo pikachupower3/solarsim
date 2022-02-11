@@ -3,7 +3,7 @@ using UnityEngine;
 
 [ExecuteInEditMode]
 [RequireComponent(typeof(Rigidbody))]
-public class CelestialBody : GravityObject
+public class CelestialBody : MonoBehaviour
 {
     public float radius;
     public float orbitRadius;
