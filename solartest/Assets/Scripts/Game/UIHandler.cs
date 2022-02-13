@@ -146,6 +146,6 @@ public class UIHandler : MonoBehaviour
         surfaceGravityText.text = "Surface Gravity: " + selectedBody.surfaceGravity;
         massText.text = "Mass: " + selectedBody.mass;
         velocityText.text = "Velocity: " + velocity;
-        nameText.text = "Name: " + selectedBody.bodyName;
+        nameText.text = selectedBody.bodyName;
     }
 }
