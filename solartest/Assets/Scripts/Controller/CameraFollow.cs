@@ -18,7 +18,8 @@ public class CameraFollow : MonoBehaviour
     private float moveSpeed = 500f;
     private float scrollSpeed = 500f;
 
-    void Start()
+    /*Set position on start*/
+    void Awake()
     {
         relativePosition = RelativePosition.InitalPosition;
         initalOffset = transform.position - targetObject.position;
@@ -30,6 +31,7 @@ public class CameraFollow : MonoBehaviour
         cameraPosition = targetObject.position + CameraOffset(relativePosition);
         transform.position = Vector3.Lerp(transform.position, cameraPosition, smoothness * Time.fixedDeltaTime);
 
+        /*Checks for inputs and moves accordingly*/
         if (Input.GetAxisRaw("Horizontal") != 0 || Input.GetAxisRaw("Vertical") != 0)
         {
             transform.position += moveSpeed * new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical"));

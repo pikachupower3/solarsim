@@ -11,7 +11,8 @@ public class Spawner : MonoBehaviour
     public CelestialBody body;
     public string bodyName;
     GameObject currentEntity;
-
+    
+    /*All the Read methods are to get the values from the Create Planet UI*/
     public void ReadRadius(string radiuss)
     {
         radius = float.Parse(radiuss);
@@ -32,6 +33,7 @@ public class Spawner : MonoBehaviour
         bodyName = name;
     }
 
+    /*Get's the input from the Hexadecimal input field*/
     public void OnMaterialEditEnd(string input)
     {
         if (IsHex(input))
@@ -86,6 +88,7 @@ public class Spawner : MonoBehaviour
 
     }
 
+    /*Creates the new Planet*/
     public void SpawnEntities()
     {
         Vector3 radiusOrbit = new Vector3(-orbitRadius, 0, 0);
@@ -97,28 +100,19 @@ public class Spawner : MonoBehaviour
         {
             currentEntity = Instantiate(Planet, radiusOrbit, Quaternion.identity, body.transform);
         }
-        
-        Debug.Log("Vector3 = " + radiusOrbit);
 
+        /*Sets the color of the planet*/
         GameObject mesh = currentEntity.transform.Find("Mesh Holder").gameObject;
         mesh.transform.localScale = Vector3.one * radius;
         mesh.GetComponent<TerrainGenerator>().material = new Material(shader);
         mesh.GetComponent<TerrainGenerator>().material.SetColor("_Color", newColor);
-
-        /*if (radius > 5000)
-        {
-            radius /= 2;
-        }
-        if (orbitRadius > 100000)
-        {
-            orbitRadius /= 1.5f;
-        }*/
-
-
+        
+        /*Set's the initial velocity based on the distance and mass of the Sun and a scaling factor*/
         GameObject go = GameObject.Find("Sun");
         CelestialBody massBody = go.GetComponent<CelestialBody>();
         Vector3 initialVelocity = new Vector3(0, 1, 0) * (float)(Mathf.Sqrt((Universe.gravitationalConstant * massBody.mass / (orbitRadius + body.orbitRadius)) * 1.5f));
-
+        
+        /*Passes the values of the new Planet to the CelestialBody script and makes sure that the new Planet is in the array to update the velocity*/
         CelestialBody createdBody = currentEntity.GetComponent<CelestialBody>();
         createdBody.CreateBody(radius, orbitRadius, surfaceGravity, initialVelocity, body, bodyName);
         TerrainGenerator createMesh = mesh.GetComponent<TerrainGenerator>();

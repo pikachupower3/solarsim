@@ -19,6 +19,7 @@ public class CelestialBody : MonoBehaviour
     public float massStar { get; private set; }
     Rigidbody rb;
 
+    /*On start set mass and positions*/
     public void Awake() {
         rb = GetComponent<Rigidbody>();
         rb.mass = mass;
@@ -27,6 +28,7 @@ public class CelestialBody : MonoBehaviour
         transform.localPosition = new Vector3 (-orbitRadius, 0, 0);
     }
 
+    /*Update velocity based on the mass and distance to all other bodies*/
     public void UpdateVelocity(CelestialBody[] allBodies, float timeStep) {
         foreach (var otherBody in allBodies) {
             if (otherBody != this) {
@@ -48,6 +50,7 @@ public class CelestialBody : MonoBehaviour
 
     }
 
+    /*On value change*/
     void OnValidate()
     {
         if (gameObject.name != "Sun")
@@ -64,6 +67,7 @@ public class CelestialBody : MonoBehaviour
         gameObject.name = bodyName;
     }
 
+    /*Called from Spawner, used to set the start values of the new planet*/
     public void CreateBody(float radiusCreate, float orbitRadiusCreate, float surfaceGravityCreate, Vector3 initvelocity, CelestialBody orbittingBody, string name)
     {
         radius = radiusCreate;
