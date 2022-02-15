@@ -6,18 +6,20 @@ public class NBodySimulation : MonoBehaviour {
     CelestialBody[] bodies;
     static NBodySimulation instance;
 
+    /*Used to add the new planet created through the Spawner script to the array*/
     public void NewBody()
     {
         bodies = FindObjectsOfType<CelestialBody>();
     }
 
+    /*On start set values*/
     void Awake () {
 
         bodies = FindObjectsOfType<CelestialBody> ();
         Time.fixedDeltaTime = Universe.physicsTimeStep;
-        Debug.Log ("Setting fixedDeltaTime to: " + Universe.physicsTimeStep);
     }
 
+    /*Update every frame*/
     void FixedUpdate () {
         for (int i = 0; i < bodies.Length; i++) {
             Vector3 acceleration = CalculateAcceleration (bodies[i].Position, bodies[i]);
@@ -37,6 +39,7 @@ public class NBodySimulation : MonoBehaviour {
 
     }
 
+    /*Calls function from Celestialbody, calculates the velocity for the body based on the mass and distance to all other bodies*/
     public static Vector3 CalculateAcceleration (Vector3 point, CelestialBody ignoreBody = null) {
         Vector3 acceleration = Vector3.zero;
         foreach (var body in Instance.bodies) {
