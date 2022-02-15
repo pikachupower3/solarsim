@@ -53,6 +53,10 @@ public class UIHandler : MonoBehaviour
         {
             if (UIisDisabled)
             {
+                if (GameIsPaused)
+                {
+                    Time.timeScale = 0f;
+                }
                 EnableAllUI();
             }
             else
@@ -92,6 +96,7 @@ public class UIHandler : MonoBehaviour
     {
         PanelUI.SetActive(false);
         UIisDisabled = true;
+        Time.timeScale = 1f;
     }
 
     void EnableAllUI()
