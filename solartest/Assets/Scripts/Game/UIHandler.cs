@@ -19,6 +19,7 @@ public class UIHandler : MonoBehaviour
     public TMPro.TextMeshProUGUI velocityText;
     public TMPro.TextMeshProUGUI nameText;
 
+    /*Makes sure that the UI is visible and the Create Planet and Planet Stat UI are invisile*/
     void Awake()
     {
         createPlanetUI.SetActive(false);
@@ -27,7 +28,7 @@ public class UIHandler : MonoBehaviour
         PlanetStatUI.SetActive(false);
     }
 
-
+    /*Makes the Create Planet UI invisible or visible if the F key is pressed based on if it is already visible or not*/
     void Update()
     {
         if (Input.GetKeyDown("r"))
@@ -49,6 +50,7 @@ public class UIHandler : MonoBehaviour
             }
         }
 
+        /*Makes all the UI invisible or visible if the F key is pressed based on if it is already visible or not*/
         if (Input.GetKeyDown("f"))
         {
             if (UIisDisabled)
@@ -61,6 +63,7 @@ public class UIHandler : MonoBehaviour
             }
         }
 
+        /*Makes the Planet Stat UI invisbile if it is visible when the T key is pressed*/
         if (Input.GetKeyDown("t"))
         {
             if (PlanetStat)
@@ -69,6 +72,7 @@ public class UIHandler : MonoBehaviour
             }
         }
 
+        /*Checks on which Body is pressed and get's the stat for that and passes it to the Planet Stat UI*/
         if (Input.GetMouseButtonDown(0))
         {
             RaycastHit hit;
@@ -135,12 +139,6 @@ public class UIHandler : MonoBehaviour
         Rigidbody rbSelectedBody = cb.GetComponent<Rigidbody>();
         float velocity = rbSelectedBody.velocity.magnitude;
         CelestialBody selectedBody = cb.GetComponent<CelestialBody>();
-        /*radiusText.text = selectedBody.radius.ToString();
-        orbitRadiusText.text = selectedBody.orbitRadius.ToString();
-        surfaceGravityText.text = selectedBody.surfaceGravity.ToString();
-        massText.text = selectedBody.mass.ToString();
-        velocityText.text = velocity.ToString();
-        nameText.text = selectedBody.bodyName;*/
         radiusText.text = "Radius: " + selectedBody.radius;
         orbitRadiusText.text = "Orbit Radius: " + selectedBody.orbitRadius;
         surfaceGravityText.text = "Surface Gravity: " + selectedBody.surfaceGravity;
