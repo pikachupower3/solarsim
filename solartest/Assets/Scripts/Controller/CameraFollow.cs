@@ -46,12 +46,6 @@ public class CameraFollow : MonoBehaviour
         {
             transform.LookAt(targetObject);
         }
-
-        if (Input.GetKeyDown("f"))
-        {
-            transform.position = initialPosition;
-            transform.rotation = Quaternion.identity;
-        }
     }
 
         Vector3 CameraOffset(RelativePosition ralativePos)

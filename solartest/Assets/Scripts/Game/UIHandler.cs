@@ -82,7 +82,7 @@ public class UIHandler : MonoBehaviour
             RaycastHit hit;
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
-            if (Physics.Raycast(ray, out hit, 100000.0f))
+            if (Physics.Raycast(ray, out hit, 10000000.0f))
             {
                 if (hit.transform != null)
                 {
